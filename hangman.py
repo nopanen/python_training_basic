@@ -1,3 +1,5 @@
+import random
+
 TRIES = 10
 OFFER_NEXT_GAME = 'Would you like to have another try? (y/n)\n'
 GAME_WON_PHRASE = 'Congratulations!'
@@ -131,4 +133,30 @@ def start_new_game(word, max_tries):
         return False
 
 
-initialize(['Obi-Wan Kenobi', 'Alladin'])
+#my_file = open('words.txt', 'r')
+
+#for line in my_file:
+#    print(line)
+
+#lines = my_file.readlines()
+#for line in lines:
+#    print(line)
+
+#with open('words.txt') as my_file:
+#    for line in my_file:
+#        print(line)
+
+# open for writing, write a new line
+#with open('words.txt', 'w') as my_file:
+#    my_file.write('Some content')
+
+# open for writing (append to the end)
+#with open('words.txt', 'a') as my_file:
+#    my_file.write('\nSome more content')
+
+with open('nounlist.txt') as nouns_file:
+    # nounlist = [n for n in nouns_file if len(n) >= 5]
+    nounlist = [word.rstrip() for word in nouns_file if len(word) >= 5]
+
+random.shuffle(nounlist)
+initialize(nounlist)
