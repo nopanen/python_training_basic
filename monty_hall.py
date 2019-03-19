@@ -25,17 +25,16 @@ def run_trials(trials):
     run n trials and save number of both outcomes
     """
 
-    timeswon = 0
-    timeslost = 0
+    stickwins = 0
+    notstickwins = 0
 
     for trial in range(trials):
-        res = one_try()
-        if res:
-            timeswon += 1
+        if one_try():
+            stickwins += 1
         else:
-            timeslost += 1
+            notstickwins += 1
 
-    return [timeswon, timeslost]
+    return [stickwins, notstickwins]
 
 
 def display_sim(sim_result):
@@ -44,5 +43,5 @@ def display_sim(sim_result):
     """
     pass
 
-res = run_trials(100)
-print "Won: " + str(res[0]) + ". Lost: " + str(res[1])
+res = run_trials(10000)
+print "Won by sticking: " + str(res[0]) + ". Won by swapping: " + str(res[1])
