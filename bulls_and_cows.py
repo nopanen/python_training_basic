@@ -2,43 +2,20 @@ import random
 
 
 def generate_cipher():
-    """
-    returns a random sequence of 4 unique digits as python list
-    e.g.
-    print(generate_cipher()) -> [5, 2, 7, 3]
-    print(generate_cipher()) -> [5, 0, 3, 9]
-    print(generate_cipher()) -> [3, 4, 8, 6]
-    """
-
-    return random.sample(xrange(10), 4)
+    return random.sample(range(10), 4)
 
 
 def get_bulls_and_cows(cipher, guess):
-    """
-    takes 2 python lists of length 4 cipher and guess and computes the number
-    of bulls and the number of cows as a 2 element tuple
-
-    in this implementation bulls and cows will be mutually exclusive
-    (a digit in the sequence can't be both a bull and a cow) and the sum of
-    the two must be <= 4
-
-    bulls: number of digits guessed correctly AND in the correct place
-    cows: number of digits guessed correctly NOT in the correct place
-    here are some of the test cases:
-    print get_bulls_and_cows([1,2,3,4],[1,2,3,4]) -> (4, 0)
-    print get_bulls_and_cows([1,2,3,4],[2,1,4,3]) -> (0, 4)
-    print get_bulls_and_cows([1,2,3,4],[1,6,2,3]) -> (1, 2)
-    print get_bulls_and_cows([1,2,3,4],[5,6,7,8]) -> (0, 0)
-    """
     assert len(cipher) == len(guess) == 4, 'cipher and guess must be lists of length 4'
+    bulls = 0
+    cows = 0
+    for i in range(len(cipher)):
+        if guess[i] == cipher[i]:
+            bulls += 1
+        else:
+            cows += 1
 
-    bulls = [cipher[i] for i in range(len(cipher)) if cipher[i] == guess[i]]
-
-    diff = set(cipher).intersection(set(guess))
-
-    cows = len(diff) - len(bulls)
-
-    return len(bulls), cows
+    return bulls, cows
 
 
 def play_game():
@@ -92,12 +69,12 @@ def play_game():
         if not user_input.isdigit():
             continue
 
-        result = get_bulls_and_cows(cipher, [int(x) for x in user_input])
+        result = get_bulls_and_cows(cipher, list(map(int, list(user_input))))
         if result == (4, 0):
-            print('Congrats, You win')
             game_running = False
         else:
             print(user_input + ' bulls: ' + str(result[0]) + ', cows: ' + str(result[1]))
+    print('Congrats, You win')
 
 play_game()
 #print get_bulls_and_cows([1,2,3,4],[1,2,3,4])# -> (4, 0)
